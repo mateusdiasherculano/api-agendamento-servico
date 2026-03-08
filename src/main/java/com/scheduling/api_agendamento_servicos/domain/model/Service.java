@@ -4,8 +4,6 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
-import java.math.BigDecimal;
-
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 @Data
 @Entity
@@ -20,16 +18,11 @@ public class Service {
     private String name;
 
     @Column(nullable = false)
-    private BigDecimal price;
-
-    @Column(nullable = false)
     private String description;
 
     @Column(nullable = false)
     private Integer durationMinutes;
 
-    @Column(nullable = false)
-    private boolean isActive = true;
     @ManyToOne
     @JoinColumn(name = "professional_id")
     private User professional;
