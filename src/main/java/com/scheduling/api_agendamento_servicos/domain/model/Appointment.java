@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.LocalDateTime;
 
@@ -19,24 +20,28 @@ public class Appointment {
 
 
     @ManyToOne
-    @JoinColumn(name = "client_id")
+    @JoinColumn(name = "professional_id", nullable = false)
+    private User professional;
+
+    @ManyToOne
+    @JoinColumn(name = "client_id", nullable = false)
     private User client;
 
     @ManyToOne
-    @JoinColumn(name = "service_id")
+    @JoinColumn(name = "service_id",  nullable = false)
     private Service service;
 
-
-    @OneToOne
-    @JoinColumn(name = "availability_slot_id", nullable = false)
-    private AvailabilitySlot availabilitySlot;
+    @Column(nullable = false)
+    private LocalDateTime scheduledAt;
 
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = false)
     private AppointmentStatus status;
 
-    @Column(nullable = false)
     @CreationTimestamp
     private LocalDateTime createdAt;
+
+    @UpdateTimestamp
+    private LocalDateTime updatedAt;
 }
